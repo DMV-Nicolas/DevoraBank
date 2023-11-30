@@ -1,13 +1,13 @@
 postgres: 
 	docker start techschool
 createdb:
-	docker exec -it techschool createdb bank
+	docker exec -it techschool createdb sakurabank
 dropdb:
-	docker exec -it techschool dropdb bank
+	docker exec -it techschool dropdb sakurabank
 migrateup:
-	migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/bank?sslmode=disable" -verbose up 
+	migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose up 
 migratedown:
-	migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/bank?sslmode=disable" -verbose down
+	migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose down
 sqlc:
 	sqlc generate
 test:
