@@ -4,20 +4,19 @@ import (
 	"database/sql"
 	"testing"
 
+	"github.com/DMV-Nicolas/bankapp/util"
 	_ "github.com/lib/pq"
-)
-
-const (
-	dbDriver = "postgres"
-	dbSource = "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable"
 )
 
 var testQueries *Queries
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
-	var err error
-	testDB, err = sql.Open(dbDriver, dbSource)
+	config, err := util.LoadConfig("../../")
+	if err != nil {
+		panic("Cannot load config: " + err.Error())
+	}
+	testDB, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		panic("Cannot connect to DB: " + err.Error())
 	}
