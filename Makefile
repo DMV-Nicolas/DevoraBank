@@ -4,15 +4,13 @@ createdb:
 	docker exec -it techschool createdb sakurabank
 dropdb:
 	docker exec -it techschool dropdb sakurabank
-installmigrate:
-	sudo apt-get install migrate -y
 migrateup:
-	migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose up 
+	./migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose up 
 migratedown:
-	migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose down
+	./migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose down
 sqlc:
 	sqlc generate
 test:
 	go clean -testcache
 	go test -v --cover ./...
-.PHONY: postgres createdb dropdb installmigrate migrateup migratedown sqlc
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc
