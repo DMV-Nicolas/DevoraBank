@@ -5,9 +5,7 @@ createdb:
 dropdb:
 	docker exec -it techschool dropdb sakurabank
 installmigrate:
-	curl -L -N https://github.com/golang-migrate/migrate/releases/download/v4.16.2/migrate-4.16.2.zip | tar xvz
-	sudo mv migrate.linux-amd64 /usr/bin/migrate
-	which migrate
+	sudo apt-get install migrate -y
 migrateup:
 	migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose up 
 migratedown:
