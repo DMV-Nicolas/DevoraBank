@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -57,6 +58,36 @@ func RandomOwner() string {
 	str := monsters[rand.Intn(len(monsters))] + " "
 	str += actions[rand.Intn(len(actions))] + " "
 	str += victims[rand.Intn(len(victims))]
+	return str
+}
+
+func RandomEmail() string {
+	names := []string{
+		"abuela", "cristian", "santiago",
+		"feminista", "nicolas", "juan",
+		"comunista", "julian", "diego",
+		"capitalista", "pepito", "valentina",
+		"langosta", "avi", "maria",
+		"hombre", "rodolfo", "fernando",
+		"jirafa", "gustavo", "proplayer",
+		"pene", "rodrigo", "noob",
+		"duende", "luis", "hacker",
+	}
+	business := []string{
+		"gmail", "google", "yt",
+		"unal.edu", "colsubsidio.edu", "hotmail",
+		"outlook", "sakura",
+	}
+	countries := []string{
+		"com", "co", "ar", "es", "us",
+		"br", "cl", "pe", "mx", "uy",
+	}
+	str := fmt.Sprint(rand.Intn(100))
+	str += names[rand.Intn(len(names))]
+	str += fmt.Sprint(rand.Intn(100))
+	str += "@"
+	str += business[rand.Intn(len(business))]
+	str += countries[rand.Intn(len(countries))]
 	return str
 }
 
