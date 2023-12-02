@@ -2,9 +2,10 @@ package db
 
 import (
 	"database/sql"
+	"os"
 	"testing"
 
-	"github.com/DMV-Nicolas/bankapp/util"
+	"github.com/DMV-Nicolas/sakurabank/util"
 	_ "github.com/lib/pq"
 )
 
@@ -23,5 +24,5 @@ func TestMain(m *testing.M) {
 
 	testQueries = New(testDB)
 
-	m.Run()
+	os.Exit(m.Run())
 }

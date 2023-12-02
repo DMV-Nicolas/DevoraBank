@@ -3,9 +3,9 @@ package main
 import (
 	"database/sql"
 
-	"github.com/DMV-Nicolas/bankapp/api"
-	db "github.com/DMV-Nicolas/bankapp/db/sqlc"
-	"github.com/DMV-Nicolas/bankapp/util"
+	"github.com/DMV-Nicolas/sakurabank/api"
+	db "github.com/DMV-Nicolas/sakurabank/db/sqlc"
+	"github.com/DMV-Nicolas/sakurabank/util"
 	_ "github.com/lib/pq"
 )
 

@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"net/http"
 
-	db "github.com/DMV-Nicolas/bankapp/db/sqlc"
+	db "github.com/DMV-Nicolas/sakurabank/db/sqlc"
 	"github.com/gin-gonic/gin"
 )
 
@@ -88,7 +88,7 @@ func (server *Server) listAccounts(ctx *gin.Context) {
 
 type updateAccountRequest struct {
 	ID      int64   `json:"id,string" binding:"required,min=1"`
-	Balance float64 `json:"balance,string	" binding:"required"`
+	Balance float64 `json:"balance,string" binding:"required"`
 }
 
 func (server *Server) updateAccount(ctx *gin.Context) {

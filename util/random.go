@@ -74,5 +74,5 @@ func RandomMoney() float64 {
 }
 
 func RandomID() int64 {
-	return int64(RandomInt(1, 10))
+	return int64(RandomInt(1, 1000))
 }
