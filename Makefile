@@ -8,6 +8,10 @@ migrateup:
 	./migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose up 
 migratedown:
 	./migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose down
+migrateup1:
+	./migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose up 1
+migratedown1:
+	./migrate -path db/migration -database "postgresql://root:83postgres19@localhost:5432/sakurabank?sslmode=disable" -verbose down 1
 sqlc:
 	sqlc generate
 test:
@@ -17,4 +21,4 @@ server:
 	go run main.go
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/DMV-Nicolas/sakurabank/db/sqlc Store
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc server mock
+.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc server mock
