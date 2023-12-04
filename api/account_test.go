@@ -10,9 +10,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	mockdb "github.com/DMV-Nicolas/sakurabank/db/mock"
-	db "github.com/DMV-Nicolas/sakurabank/db/sqlc"
-	"github.com/DMV-Nicolas/sakurabank/util"
+	mockdb "github.com/DMV-Nicolas/DevoraBank/db/mock"
+	db "github.com/DMV-Nicolas/DevoraBank/db/sqlc"
+	"github.com/DMV-Nicolas/DevoraBank/util"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )

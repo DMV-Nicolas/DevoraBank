@@ -1,4 +1,4 @@
-module github.com/DMV-Nicolas/sakurabank
+module github.com/DMV-Nicolas/DevoraBank
 
 go 1.21.4
 

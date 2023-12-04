@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/DMV-Nicolas/sakurabank/util"
+	"github.com/DMV-Nicolas/DevoraBank/util"
 	"github.com/go-playground/validator/v10"
 )
 

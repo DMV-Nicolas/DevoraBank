@@ -1,7 +1,7 @@
 package api
 
 import (
-	db "github.com/DMV-Nicolas/sakurabank/db/sqlc"
+	db "github.com/DMV-Nicolas/DevoraBank/db/sqlc"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
@@ -22,10 +22,10 @@ func NewServer(store db.Store) *Server {
 	}
 
 	router.POST("/accounts", server.createAccount)
-	router.PUT("/accounts", server.updateAccount)
-	router.DELETE("/accounts", server.deleteAccount)
 	router.GET("/accounts/:id", server.getAccount)
 	router.GET("/accounts", server.listAccounts)
+	router.PUT("/accounts", server.updateAccount)
+	router.DELETE("/accounts", server.deleteAccount)
 
 	router.POST("/transfers", server.createTransfer)
 

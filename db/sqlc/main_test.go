@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/DMV-Nicolas/sakurabank/util"
+	"github.com/DMV-Nicolas/DevoraBank/util"
 	_ "github.com/lib/pq"
 )
 
