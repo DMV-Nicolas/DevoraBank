@@ -3,18 +3,28 @@ package api
 import (
 	"database/sql"
 	"net/http"
+	"time"
 
 	db "github.com/DMV-Nicolas/DevoraBank/db/sqlc"
+	"github.com/DMV-Nicolas/DevoraBank/util"
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type createUserRequest struct {
-	Username string `json:"username" binding:"required,min=5"`
-	FullName string `json:"fullname" binding:"required,min=5"`
-	Email    string `json:"email" binding:"required"`
+	Username string `json:"username" binding:"required,alphanum"`
+	FullName string `json:"fullname" binding:"required"`
+	Email    string `json:"email" binding:"required,email"`
 	Password string `json:"password" binding:"required,min=8"`
+}
+
+type createUserResponse struct {
+	Username          string    `json:"username"`
+	FullName          string    `json:"full_name"`
+	Email             string    `json:"email"`
+	PasswordChangedAt time.Time `json:"password_changed_at"`
+	CreatedAt         time.Time `json:"created_at"`
 }
 
 func (server *Server) createUser(ctx *gin.Context) {
@@ -24,7 +34,7 @@ func (server *Server) createUser(ctx *gin.Context) {
 		return
 	}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	hashedPassword, err := util.HashPassword(req.Password)
 	if err != nil {
 		if err == bcrypt.ErrPasswordTooLong {
 			ctx.JSON(http.StatusBadRequest, errorResponse(err))
@@ -38,14 +48,14 @@ func (server *Server) createUser(ctx *gin.Context) {
 		Username:       req.Username,
 		FullName:       req.FullName,
 		Email:          req.Email,
-		HashedPassword: string(hashedPassword),
+		HashedPassword: hashedPassword,
 	}
 
 	user, err := server.store.CreateUser(ctx, arg)
 	if err != nil {
 		if pqErr, ok := err.(*pq.Error); ok {
 			switch pqErr.Code.Name() {
-			case "foreign_key_violation", "unique_violation":
+			case "unique_violation":
 				ctx.JSON(http.StatusForbidden, errorResponse(err))
 				return
 			}
@@ -54,7 +64,15 @@ func (server *Server) createUser(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, user)
+	res := createUserResponse{
+		Username:          user.Username,
+		FullName:          user.FullName,
+		Email:             user.Email,
+		PasswordChangedAt: user.PasswordChangedAt,
+		CreatedAt:         user.CreatedAt,
+	}
+
+	ctx.JSON(http.StatusOK, res)
 }
 
 type getUserRequest struct {

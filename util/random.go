@@ -67,6 +67,14 @@ func RandomEmail() string {
 	return str
 }
 
+func RandomPassword(size int) (str string) {
+	digits := "abcdefghijklmnopqrstuvwxyz1234567890"
+	for i := 0; i < size; i++ {
+		str += string(digits[rand.Intn(len(digits))])
+	}
+	return str
+}
+
 func RandomCurrency() string {
 	currencies := []string{
 		COP, USD, EUR,
