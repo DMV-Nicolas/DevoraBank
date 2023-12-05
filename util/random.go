@@ -18,42 +18,19 @@ func RandomInt(min, max int) int {
 // RandomOwner generates a really random owner name
 func RandomOwner() string {
 	monsters := []string{
-		"Caballo",
-		"Omnitorrinco",
-		"Avion",
-		"Hijo de puta",
-		"Avi Nicolas",
-		"Luis Cortes",
-		"Rodrigo Rivera",
-		"Andres Franco",
-		"Santiago Zamora",
-		"Juan Diego",
-		"Nicolas Moreno",
-		"Cristiansito",
-		"Juliansito",
-		"Valentinita",
+		"Caballo", "Omnitorrinco", "Avion", "Hijo de puta", "Avi",
+		"Luis", "Rodrigo", "Andres", "Santiago", "Diego", "Gustavo",
+		"Juan", "Nicolas", "Cristiansito", "Juliansito", "Valentinita",
+		"Sebastian", "David",
 	}
 	actions := []string{
-		"violador de",
-		"abusador de",
-		"terapeuta de",
-		"simp de",
-		"desarmador de",
-		"dominado por",
-		"esclavizado por",
-		"sexualmente abusado por",
-		"atraido por",
+		"violador de", "abusador de", "terapeuta de", "simp de", "desarmador de",
+		"dominado por", "esclavizado por", "sexualmente abusado por", "atraido por",
+		"amante del sexo con", "asesinado por", "traumado por", "lider de", "creador de",
 	}
 	victims := []string{
-		"abuelas",
-		"feministas",
-		"comunistas",
-		"capitalistas",
-		"langostas",
-		"hombres",
-		"jirafas",
-		"penes",
-		"duendes",
+		"abuelas", "feministas", "comunistas", "capitalistas", "langostas",
+		"hombres", "jirafas", "penes", "duendes",
 	}
 	str := monsters[rand.Intn(len(monsters))] + " "
 	str += actions[rand.Intn(len(actions))] + " "
@@ -82,11 +59,10 @@ func RandomEmail() string {
 		"com", "co", "ar", "es", "us",
 		"br", "cl", "pe", "mx", "uy",
 	}
-	str := fmt.Sprint(rand.Intn(100))
-	str += names[rand.Intn(len(names))]
+	str := names[rand.Intn(len(names))]
 	str += fmt.Sprint(rand.Intn(100))
 	str += "@"
-	str += business[rand.Intn(len(business))]
+	str += business[rand.Intn(len(business))] + "."
 	str += countries[rand.Intn(len(countries))]
 	return str
 }
