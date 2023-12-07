@@ -14,7 +14,6 @@ func main() {
 	if err != nil {
 		panic("Cannot load config: " + err.Error())
 	}
-
 	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		panic("Cannot connect to DB: " + err.Error())
