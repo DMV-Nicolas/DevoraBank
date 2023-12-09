@@ -35,6 +35,7 @@ func RandomOwner() string {
 	str := monsters[rand.Intn(len(monsters))]
 	str += actions[rand.Intn(len(actions))]
 	str += victims[rand.Intn(len(victims))]
+	str += fmt.Sprint(rand.Intn(1000))
 	return str
 }
 
@@ -60,7 +61,7 @@ func RandomEmail() string {
 		"br", "cl", "pe", "mx", "uy",
 	}
 	str := names[rand.Intn(len(names))]
-	str += fmt.Sprint(rand.Intn(100))
+	str += fmt.Sprint(rand.Intn(1000))
 	str += "@"
 	str += business[rand.Intn(len(business))] + "."
 	str += countries[rand.Intn(len(countries))]
