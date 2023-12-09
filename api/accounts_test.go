@@ -215,7 +215,7 @@ func TestGetAccountAPI(t *testing.T) {
 			},
 		},
 		{
-			name:      "NonAccountOwner",
+			name:      "UnauthorizedUser",
 			accountID: account.ID,
 			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
 				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, "pepito", time.Minute)

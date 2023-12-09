@@ -205,7 +205,7 @@ func TestCreateTransferAPI(t *testing.T) {
 			},
 		},
 		{
-			name: "NonAccountOwner",
+			name: "UnauthorizedUser",
 			body: map[string]any{
 				"from_account_id": account1.ID,
 				"to_account_id":   account2.ID,

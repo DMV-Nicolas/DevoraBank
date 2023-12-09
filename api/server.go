@@ -46,7 +46,7 @@ func (server *Server) setupRouter() {
 
 	router.POST("/users", server.createUser)
 	router.POST("/users/login", server.loginUser)
-	authRoutes.GET("/users/:username", server.getUser)
+	authRoutes.GET("/users", server.getUser)
 
 	authRoutes.POST("/accounts", server.createAccount)
 	authRoutes.GET("/accounts/:id", server.getAccount)
