@@ -2,10 +2,12 @@ package api
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 	"time"
 
 	db "github.com/DMV-Nicolas/DevoraBank/db/sqlc"
+	"github.com/DMV-Nicolas/DevoraBank/token"
 	"github.com/DMV-Nicolas/DevoraBank/util"
 	"github.com/gin-gonic/gin"
 )
@@ -68,30 +70,6 @@ func (server *Server) createUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, res)
 }
 
-type getUserRequest struct {
-	Username string `uri:"username" binding:"required"`
-}
-
-func (server *Server) getUser(ctx *gin.Context) {
-	var req getUserRequest
-	if err := ctx.ShouldBindUri(&req); err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
-		return
-	}
-
-	user, err := server.store.GetUser(ctx, req.Username)
-	if err != nil {
-		if err == sql.ErrNoRows {
-			ctx.JSON(http.StatusNotFound, errorResponse(err))
-			return
-		}
-		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
-		return
-	}
-
-	ctx.JSON(http.StatusOK, user)
-}
-
 type loginUserRequest struct {
 	Username string `json:"username" binding:"required,alphanum"`
 	Password string `json:"password" binding:"required,min=8"`
@@ -137,4 +115,35 @@ func (server *Server) loginUser(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, res)
+}
+
+type getUserRequest struct {
+	Username string `uri:"username" binding:"required,alphanum"`
+}
+
+func (server *Server) getUser(ctx *gin.Context) {
+	var req getUserRequest
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	user, err := server.store.GetUser(ctx, req.Username)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+	if authPayload.Username != user.Username {
+		err = fmt.Errorf("account doesn't belong to the authenticated user")
+		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, newUserResponse(user))
 }
