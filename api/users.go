@@ -8,8 +8,6 @@ import (
 	db "github.com/DMV-Nicolas/DevoraBank/db/sqlc"
 	"github.com/DMV-Nicolas/DevoraBank/util"
 	"github.com/gin-gonic/gin"
-	"github.com/lib/pq"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type createUserRequest struct {
@@ -46,10 +44,6 @@ func (server *Server) createUser(ctx *gin.Context) {
 
 	hashedPassword, err := util.HashPassword(req.Password)
 	if err != nil {
-		if err == bcrypt.ErrPasswordTooLong {
-			ctx.JSON(http.StatusBadRequest, errorResponse(err))
-			return
-		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
@@ -63,20 +57,15 @@ func (server *Server) createUser(ctx *gin.Context) {
 
 	user, err := server.store.CreateUser(ctx, arg)
 	if err != nil {
-		if pqErr, ok := err.(*pq.Error); ok {
-			switch pqErr.Code.Name() {
-			case "unique_violation":
-				ctx.JSON(http.StatusForbidden, errorResponse(err))
-				return
-			}
+		if db.ErrorCode(err) == db.UniqueViolation {
+			ctx.JSON(http.StatusForbidden, errorResponse(err))
 		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
 
 	res := newUserResponse(user)
-
-	ctx.JSON(http.StatusOK, res)
+	ctx.JSON(http.StatusCreated, res)
 }
 
 type getUserRequest struct {

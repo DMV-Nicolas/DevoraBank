@@ -6,6 +6,7 @@ import (
 	"github.com/DMV-Nicolas/DevoraBank/api"
 	db "github.com/DMV-Nicolas/DevoraBank/db/sqlc"
 	"github.com/DMV-Nicolas/DevoraBank/util"
+	_ "github.com/golang/mock/mockgen/model"
 	_ "github.com/lib/pq"
 )
 

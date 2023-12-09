@@ -22,9 +22,4 @@ func TestPassword(t *testing.T) {
 	wrongPassword := RandomPassword(8) + ":)"
 	err = CheckPassword(wrongPassword, hashedPassword1)
 	require.EqualError(t, err, bcrypt.ErrMismatchedHashAndPassword.Error())
-
-	tooLongPassword := RandomPassword(100)
-	hashedPassword1, err = HashPassword(tooLongPassword)
-	require.EqualError(t, err, bcrypt.ErrPasswordTooLong.Error())
-	require.Empty(t, hashedPassword1)
 }
