@@ -1,5 +1,5 @@
 postgres: 
-	docker start techschool
+	docker create -p5432:5432 --name sql1 --network devorabank-network -e POSTGRES_PASSWORD=83postgres19 -e POSTGRES_USER=root postgres:latest
 createdb:
 	docker exec -it techschool createdb bank
 dropdb:
