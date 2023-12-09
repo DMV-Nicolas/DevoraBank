@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"log"
 	"os"
 	"testing"
 
@@ -15,11 +16,11 @@ var testDB *sql.DB
 func TestMain(m *testing.M) {
 	config, err := util.LoadConfig("../../")
 	if err != nil {
-		panic("Cannot load config: " + err.Error())
+		log.Fatalf("Cannot load config: %v", err)
 	}
 	testDB, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
-		panic("Cannot connect to DB: " + err.Error())
+		log.Fatalf("Cannot connect to DB: %v", err)
 	}
 
 	testQueries = New(testDB)
