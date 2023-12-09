@@ -18,22 +18,22 @@ func RandomInt(min, max int) int {
 // RandomOwner generates a really random owner name
 func RandomOwner() string {
 	monsters := []string{
-		"Caballo", "Omnitorrinco", "Avion", "Hijo de puta", "Avi",
+		"Caballo", "Omnitorrinco", "Avion", "HijoDePuta", "Avi",
 		"Luis", "Rodrigo", "Andres", "Santiago", "Diego", "Gustavo",
 		"Juan", "Nicolas", "Cristiansito", "Juliansito", "Valentinita",
 		"Sebastian", "David",
 	}
 	actions := []string{
-		"violador de", "abusador de", "terapeuta de", "simp de", "desarmador de",
-		"dominado por", "esclavizado por", "sexualmente abusado por", "atraido por",
-		"amante del sexo con", "asesinado por", "traumado por", "lider de", "creador de",
+		"VioladorDe", "AbusadorDe", "TerapeutaDe", "SimpDe", "DesarmadorDe",
+		"DominadoPor", "EsclavizadoPor", "SexualmenteAbusadoPor", "AtraidoPor",
+		"AmanteDelSexoCon", "AsesinadoPor", "TraumadoPor", "LiderDe", "CreadorDe",
 	}
 	victims := []string{
-		"abuelas", "feministas", "comunistas", "capitalistas", "langostas",
-		"hombres", "jirafas", "penes", "duendes",
+		"Abuelas", "Feministas", "Comunistas", "Capitalistas", "Langostas",
+		"Hombres", "Jirafas", "Penes", "Duendes",
 	}
-	str := monsters[rand.Intn(len(monsters))] + " "
-	str += actions[rand.Intn(len(actions))] + " "
+	str := monsters[rand.Intn(len(monsters))]
+	str += actions[rand.Intn(len(actions))]
 	str += victims[rand.Intn(len(victims))]
 	return str
 }
