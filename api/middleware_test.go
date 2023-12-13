@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/DMV-Nicolas/DevoraBank/token"
+	"github.com/DMV-Nicolas/DevoraBank/util"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 )
@@ -84,7 +85,7 @@ func TestAuthMiddleware(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			server := newTestServer(t, nil)
+			server := newTestServer(t, nil, util.RandomPassword(32))
 			authPath := "/auth"
 			server.router.GET(
 				authPath,
