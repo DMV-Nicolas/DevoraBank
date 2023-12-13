@@ -125,7 +125,7 @@ func TestCreateAccountAPI(t *testing.T) {
 			require.NoError(t, err)
 
 			// starts test server and send request
-			server := newTestServer(t, store)
+			server := newTestServer(t, store, util.RandomPassword(32))
 			recorder := httptest.NewRecorder()
 
 			url := "/accounts"
@@ -243,7 +243,7 @@ func TestGetAccountAPI(t *testing.T) {
 			tc.buildStubs(store)
 
 			// starts test server and send request
-			server := newTestServer(t, store)
+			server := newTestServer(t, store, util.RandomPassword(32))
 			recorder := httptest.NewRecorder()
 
 			url := fmt.Sprintf("/accounts/%d", tc.accountID)
@@ -372,7 +372,7 @@ func TestListAccountsAPI(t *testing.T) {
 			tc.buildStubs(store)
 
 			// starts test server and send request
-			server := newTestServer(t, store)
+			server := newTestServer(t, store, util.RandomPassword(32))
 			recorder := httptest.NewRecorder()
 
 			url := "/accounts"

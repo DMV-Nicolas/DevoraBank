@@ -244,7 +244,7 @@ func TestCreateTransferAPI(t *testing.T) {
 			require.NoError(t, err)
 
 			// starts test server and send request
-			server := newTestServer(t, store)
+			server := newTestServer(t, store, util.RandomPassword(32))
 			recorder := httptest.NewRecorder()
 
 			url := "/transfers"

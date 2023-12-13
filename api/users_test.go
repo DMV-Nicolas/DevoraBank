@@ -200,7 +200,7 @@ func TestCreateUserAPI(t *testing.T) {
 			require.NoError(t, err)
 
 			// start test server and send request
-			server := newTestServer(t, store)
+			server := newTestServer(t, store, util.RandomPassword(32))
 			recorder := httptest.NewRecorder()
 
 			url := "/users"
@@ -233,7 +233,7 @@ func TestLoginUserAPI(t *testing.T) {
 					GetUser(gomock.Any(), gomock.Eq(user.Username)).
 					Times(1).
 					Return(user, nil)
-
+				store.EXPECT().CreateSession(gomock.Any(), gomock.Any()).Times(1)
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusOK, recorder.Code)
@@ -250,7 +250,6 @@ func TestLoginUserAPI(t *testing.T) {
 					GetUser(gomock.Any(), gomock.Any()).
 					Times(1).
 					Return(db.User{}, sql.ErrNoRows)
-
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusNotFound, recorder.Code)
@@ -267,7 +266,6 @@ func TestLoginUserAPI(t *testing.T) {
 					GetUser(gomock.Any(), gomock.Any()).
 					Times(1).
 					Return(db.User{}, sql.ErrConnDone)
-
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusInternalServerError, recorder.Code)
@@ -334,7 +332,7 @@ func TestLoginUserAPI(t *testing.T) {
 			require.NoError(t, err)
 
 			// start test server and send request
-			server := newTestServer(t, store)
+			server := newTestServer(t, store, util.RandomPassword(32))
 			recorder := httptest.NewRecorder()
 
 			url := "/users/login"
@@ -416,7 +414,7 @@ func TestGetUserAPI(t *testing.T) {
 			tc.buildStubs(store)
 
 			// start test server and send request
-			server := newTestServer(t, store)
+			server := newTestServer(t, store, util.RandomPassword(32))
 			recorder := httptest.NewRecorder()
 
 			url := "/users"
